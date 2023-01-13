@@ -1,0 +1,66 @@
+# Week 2
+
+This is a Julia markdown file -- an alternative to the Jupyter notebooks we have been using.
+
+They work like R markdown documents. Write text meant for humans everywhere, except in "code blocks" which start and end with three back tick quotation marks.
+
+These documents can be converted to many formats (html, pdf) using tools such as [Quarto](https://quarto.org/). The easiest method is to use the Julia package Weave.jl. Here's the code (not executed here) to convert this document to html:
+
+```
+using Weave # need to install it first
+weave("w2-julia.jmd")
+```
+
+These files work very well in Visual Studio Code, duplicating many of the features of a Jupyter notebook in that editor.
+
+Simple example:
+
+```julia
+1+1
+```
+
+## Linear systems
+
+Make an interpolating polynomial.
+
+```julia
+N = 5
+t = range(0, 2*pi, length = N)
+y = sin.(t)
+V = hcat( [t .^ i for i in 0:N-1]...) # How does this work? evaluate just the expression in the square brackets first
+```
+
+Make the Vandermonde matrix with a loop
+
+```julia
+# loop to make V
+V = zeros(Float64, N, N)
+for i in 1:N
+    V[:, i] = t .^ (i-1)
+end
+# list comprehension to make a vector, then reshape to a matrix
+# list comprehension to make a vector, then reshape to a matrix
+V = reshape([ t[j] ^ (i-1) for i in 1:N for j in 1:N ], N, N) # fills down columns first
+# double loop makes a matrix without reshaping - loop over rows first
+V = [ t[j] ^ (i-1) for j in 1:N, i in 1:N ]
+```
+
+Get the coefficients, make a polynomial.
+
+```julia
+c = V\y # coefficients
+using Polynomials
+p = Polynomial(c)
+```
+
+Plot the result.
+
+```julia
+using Plots
+plot(p, 0, 2*pi, label = "interpolation")
+scatter!(t, y, label = "Points")
+plot!(sin, 0, 2*pi, label = "Sin")
+```
+
+PREMATURE END OF FILE. Need rest of examples from jupyter notebook.
+
