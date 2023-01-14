@@ -62,5 +62,136 @@ scatter!(t, y, label = "Points")
 plot!(sin, 0, 2*pi, label = "Sin")
 ```
 
-PREMATURE END OF FILE. Need rest of examples from jupyter notebook.
+## Forward and backward substitution
+
+From textbook, section 2.3.
+
+```julia
+"""
+    forwardsub(L,b)
+
+Solve the lower triangular linear system with matrix `L` and
+right-hand side vector `b`.
+"""
+function forwardsub(L,b)
+    n = size(L,1)
+    x = zeros(n)
+    x[1] = b[1]/L[1,1]
+    for i in 2:n
+        s = sum( L[i,j]*x[j] for j in 1:i-1 )
+        x[i] = ( b[i] - s ) / L[i,i]
+    end
+    return x
+end
+
+"""
+    backsub(U,b)
+
+Solve the upper triangular linear system with matrix `U` and
+right-hand side vector `b`.
+"""
+function backsub(U,b)
+    n = size(U,1)
+    x = zeros(n)
+    x[n] = b[n]/U[n,n]
+    for i in n-1:-1:1
+        s = sum( U[i,j]*x[j] for j in i+1:n )
+        x[i] = ( b[i] - s ) / U[i,i]
+    end
+    return x
+end
+```
+
+Generate an upper triangular and a lower triangular matrix. Make A from the product. 
+
+```julia
+using LinearAlgebra
+L = LowerTriangular(rand(Float64, 3, 3)) # compare tril(rand(Float64, 3, 3))
+U = UpperTriangular(rand(Float64, 3, 3)) # compare triu(rand(Float64, 3, 3))
+L[diagind(L)] = ones(3) # Make L have 1s on the diagonal
+b = [1, 2, 3];
+A = L * U; # Matrix product
+```
+
+Solve $Ax = b$ by writing $A = LU$ and solving $LUx = b$. 
+Solve this in two steps: $Lz = B$ then $Ux = z$.
+Compare with solution to $Ax = b$.
+
+```julia
+z = forwardsub(L, b)
+L\b # check with Julia's built-in solve
+x = backsub(U, z)
+U\z # check
+A\b
+L
+U
+sizeof(A), sizeof(L), sizeof(U)
+F = lu(A)
+F.p # see also F.P, F.L, F.U
+```
+
+## Inner and outer products of vectors
+
+```julia
+x = [1, 5, 9, -1]
+y = [-1 3 0 2]
+x * y # outer product
+y * x # inner (dot) product
+x'x
+y * y'
+```
+
+## Norms and matrix condition number
+
+```julia
+norm(b)
+sqrt(b'b)
+b
+norm(b, 1)
+norm(b, Inf)
+norm(A)
+sqrt(sum(A .^ 2))
+norm(A, Inf)
+maximum(A)
+norm(A,1)
+sum(abs.(A))
+cond(A)
+```
+
+Hilbert matrix
+
+```julia
+D = [ 1/(1+i+j) for i in 1:9, j in 1:9 ] # Hilbert matrix
+# D = reshape([ 1/(1+i+j) for i in 1:9 for j in 1:9 ], 9, 9)
+cond(D,1), cond(D,2), cond(D, Inf)
+ = 1:9
+b = D*x  
+@show D\b;
+Δx = D\b - x
+@show relative_error = norm(Δx) / norm(x);
+```
+
+Symmetrix matrix
+
+```julia
+S = A .+ A'
+isposdef(S) # possible, but not guaranteed
+SPD = A' * A
+C = cholesky(SPD)
+C.L
+C.L * C.L'
+```
+
+## Summary
+
+* create column, row vectors
+* create matrix by combining vectors, from a function and pair of loops
+* zeros, ones
+* diagm, tril, triu, UpperTriangular, LowerTriangular
+* rand (scalar, vector, matrix)
+* matrix, vector multiply
+* transpose ' (adjoint = complex conjugate transpose)
+* solve \
+* scalar multiply (broadcasting with .)
+* subsetting (indexes, :)
 
