@@ -19,6 +19,6 @@ You can get files in several ways from this github site:
 | 1 | 1.1-1.4 | [Course intro, numbers](W1-topics.ipynb) ([D](https://raw.githubusercontent.com/AndrewIrwin/m3210-notebooks/master/W1-topics.ipynb))| [Intro to Julia, course examples](W1-Intro-to-Julia.ipynb) ([D](https://raw.githubusercontent.com/AndrewIrwin/m3210-notebooks/master/W1-Intro-to-Julia.ipynb)) | [Installing Julia](W1-getting-Julia-working.ipynb) |
 | 2 | 2.1, 2.4, 2.6, 2.7, 2.8 | [Linear systems](W2-topics.ipynb) | [Julia examples](W2-julia.ipynb) ([D](https://raw.githubusercontent.com/AndrewIrwin/m3210-notebooks/master/W2-julia.ipynb)) | [Using Visual Studio Code](W2-using-vs-code.md), [HW 1 tutorial](hw-1-tutorial.ipynb)  | 
 | 3 | 3.1-3.4 | [Overdetermined systems](W3-topics.ipynb) | For Julia examples, see Notes | Video lectures on Brightspace | 
-| 3 | 4.1 | [Guess a number](W3-root-finding.ipynb) with in-class updates | | [Alternate written before class](W3-root-finding-example.ipynb) |
+| 3 | 4.1 | [Guess a number](W3-root-finding.ipynb) with in-class updates | | [Alternate written before class](W3-root-finding-examples.ipynb) |
 | 4 | 4.1-4.3 | | | |
 
