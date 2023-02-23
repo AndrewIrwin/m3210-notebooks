@@ -22,9 +22,9 @@ You can get files in several ways from this github site:
 | 3  | 4.1 | [Guess a number](W3-root-finding.ipynb) with in-class updates | | [Alternate written before class](W3-root-finding-examples.ipynb) |
 | 4 / Jan-30 | 4.1-4.5 | [Root finding](W4-topics.ipynb) | [Julia](W4-julia.ipynb) | No class F, [Munroe Day](https://www.dal.ca/about-dal/history-tradition/george_munro_day.html) |
 | 5 / Feb-6 | Bonus, 4.5-4.7 | [Interval arithmetic](W5-interval-arithmetic.ipynb) | Last week's Julia file | [Nonlinear curves](W5-nonlinear-curves.ipynb) |
-| 6 / Feb-13 | [Interpolation](W6-topics.ipynb) | [Julia - interpolation](W6-julia.ipynb), [finite differences](W6-finite-difference.ipynb) | [Automatic differentiation](W6-automatic-differentiation.ipynb) | Proposal due date now March 3 |
+| 6 / Feb-13 | [Interpolation](W6-topics.ipynb) | [Julia - interpolation](W6-julia.ipynb)  | [Automatic differentiation](W6-automatic-differentiation.ipynb) | Proposal due date now March 3 |
 | Feb-20 | Reading week | | | | 
-| 7 / Feb-27 | | | | |
+| 7 / Feb-27 | [finite differences](W6-finite-difference.ipynb) | [Automatic differentiation](W6-automatic-differentiation.ipynb) | | Proposal + HW3 due this week |
 | 8 / Mar-6 | | | | |
 | 9 / Mar-13 | | | | |
 | 10 / Mar-20 | | | | |
