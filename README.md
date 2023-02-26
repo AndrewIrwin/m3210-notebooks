@@ -24,12 +24,12 @@ You can get files in several ways from this github site:
 | 5 / Feb-6 | Bonus, 4.5-4.7 | [Interval arithmetic](W5-interval-arithmetic.ipynb) | Last week's Julia file | [Nonlinear curves](W5-nonlinear-curves.ipynb) |
 | 6 / Feb-13 | [Interpolation](W6-topics.ipynb) | [Julia - interpolation](W6-julia.ipynb)  | | Proposal due date now March 3 |
 | Feb-20 | Reading week | | | | 
-| 7 / Feb-27 | [Finite differences](W6-finite-difference.ipynb), [Integration](W7-integration.ipynb) | [Automatic differentiation](W6-automatic-differentiation.ipynb) | | Proposal + HW3 due this week |
+| 7 / Feb-27 | [Finite differences](W7-julia-fd.ipynb), [Integration](W7-integration.ipynb) | [Automatic differentiation](W6-automatic-differentiation.ipynb) | [Mathematica FD calculation](Finite-difference-by-interpolation.nb), [PDF](Finite-difference-by-interpolation.pdf) | Proposal + HW3 due this week |
 | 8 / Mar-6 | [IVPs](W7-IVPs.ipynb)| | | |
 | 9 / Mar-13 | | | | |
 | 10 / Mar-20 | | | | |
 | 11 / Mar-27 | | | | |
-| 12 / Apr-3 | | | | |
+| 12 / Apr-3 | | | | Good Friday (no class) |
 | 13 / Apr-10 | | | | |
 
 
