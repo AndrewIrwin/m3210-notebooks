@@ -25,7 +25,7 @@ You can get files in several ways from this github site:
 | 6 / Feb-13 | [Interpolation](W6-topics.ipynb) | [Julia - interpolation](W6-julia.ipynb)  | | Proposal due date now March 3 |
 | Feb-20 | Reading week | | | | 
 | 7 / Feb-27 | [Finite differences](W7-julia-fd.ipynb) | [Automatic differentiation](W6-automatic-differentiation.ipynb) | [Mathematica FD calculation](Finite-difference-by-interpolation.nb), [PDF](Finite-difference-by-interpolation.pdf) | Proposal + HW3 due this week |
-| 8 / Mar-6 | [Integration](W7-integration.ipynb) | [Euler method for IVPs](W7-IVPs.ipynb) | | |
+| 8 / Mar-6 | [Integration](W7-integration.ipynb) | [Euler method for IVPs](W7-IVPs.ipynb) | [Runge-Kutta methods](W7-runge-kutta.ipynb) | [fnc.jl](fnc.jl) helper functions |
 | 9 / Mar-13 | | | | |
 | 10 / Mar-20 | | | | |
 | 11 / Mar-27 | | | | |
