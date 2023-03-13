@@ -127,3 +127,77 @@ function fdjac(f,x₀,y₀=f(x₀))
     end
     return J
 end
+
+"""
+    euler(ivp,n)
+
+Apply Euler's method to solve the given IVP using `n` time steps.
+Returns a vector of times and a vector of solution values.
+"""
+function euler(ivp,n)
+    # Time discretization.
+    a,b = ivp.tspan
+    h = (b-a)/n
+    t = [ a + i*h for i in 0:n ]
+
+    # Initial condition and output setup.
+    u = fill(float(ivp.u0),n+1)
+
+    # The time stepping iteration.
+    for i in 1:n
+        u[i+1] = u[i] + h*ivp.f(u[i],ivp.p,t[i])
+    end
+    return t,u
+end
+
+"""
+    ie2(ivp,n)
+
+Apply the Improved Euler method to solve the given IVP using `n`
+time steps. Returns a vector of times and a vector of solution
+values.
+"""
+function ie2(ivp,n)
+    # Time discretization.
+    a,b = ivp.tspan
+    h = (b-a)/n
+    t = [ a + i*h for i in 0:n ]
+
+    # Initialize output.
+    u = fill(float(ivp.u0),n+1)
+
+    # Time stepping.
+    for i in 1:n
+        uhalf = u[i] + h/2*ivp.f(u[i],ivp.p,t[i]);
+        u[i+1] = u[i] + h*ivp.f(uhalf,ivp.p,t[i]+h/2);
+    end
+    return t,u
+end
+
+
+"""
+    rk4(ivp,n)
+
+Apply the common Runge-Kutta 4th order method to solve the given 
+IVP using `n` time steps. Returns a vector of times and a vector of
+solution values.
+"""
+function rk4(ivp,n)
+    # Time discretization.
+    a,b = ivp.tspan
+    h = (b-a)/n
+    t = [ a + i*h for i in 0:n ]
+
+    # Initialize output.
+    u = fill(float(ivp.u0),n+1)
+
+    # Time stepping.
+    for i in 1:n
+        k₁ = h*ivp.f( u[i],      ivp.p, t[i]     )
+        k₂ = h*ivp.f( u[i]+k₁/2, ivp.p, t[i]+h/2 )
+        k₃ = h*ivp.f( u[i]+k₂/2, ivp.p, t[i]+h/2 )
+        k₄ = h*ivp.f( u[i]+k₃,   ivp.p, t[i]+h   )
+        u[i+1] = u[i] + (k₁ + 2(k₂+k₃) + k₄)/6
+    end
+    return t,u
+end
