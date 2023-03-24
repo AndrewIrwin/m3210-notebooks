@@ -27,8 +27,8 @@ You can get files in several ways from this github site:
 | 7 / Feb-27 | [Finite differences](W7-julia-fd.ipynb) | [Automatic differentiation](W6-automatic-differentiation.ipynb) | [Mathematica FD calculation](Finite-difference-by-interpolation.nb), [PDF](Finite-difference-by-interpolation.pdf) | Proposal + HW3 due this week |
 | 8 / Mar-6 | [Integration](W7-integration.ipynb) | [Euler method for IVPs](W7-IVPs.ipynb) | [Runge-Kutta methods](W7-runge-kutta.ipynb) | [fnc.jl](fnc.jl) helper functions |
 | 9 / Mar-13 | | [IVP bonus topics](W9-IVP-bonus.ipynb) | [Eigenvalues](W10-eigenvalues.ipynb) | |
-| 10 / Mar-20 | [Matrix intro](W10-matrix-intro.ipynb), [SVD](W11-SVD.ipynb) | [Orthogonal polynomials](W11-orthogonal-polynomials.ipynb) | [Quadrature](W11-orthogonal-polynomial-quadrature.ipynb) | |
-| 11 / Mar-27 | [Trig polynomials, FFT](W12-trig-polynomial.ipynb) | | | |
+| 10 / Mar-20 | [Matrix intro](W10-matrix-intro.ipynb), [SVD](W11-SVD.ipynb) | [Orthogonal polynomials](W11-orthogonal-polynomials.ipynb) | [Trig polynomials + FFT](W12-trig-polynomial.ipynb) | |
+| 11 / Mar-27 | [Quadrature](W11-orthogonal-polynomial-quadrature.ipynb) | | | |
 | 12 / Apr-3 | | | | Good Friday (no class) |
 | 13 / Apr-10 | | | | |
 
