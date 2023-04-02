@@ -29,7 +29,7 @@ You can get files in several ways from this github site:
 | 9 / Mar-13 | | [IVP bonus topics](W9-IVP-bonus.ipynb) | [Eigenvalues](W10-eigenvalues.ipynb) | |
 | 10 / Mar-20 | [Matrix intro](W10-matrix-intro.ipynb), [SVD](W11-SVD.ipynb) | [Orthogonal polynomials](W11-orthogonal-polynomials.ipynb) | [Trig polynomials + FFT](W12-trig-polynomial.ipynb) | |
 | 11 / Mar-27 | [Quadrature](W11-orthogonal-poly-quadrature.ipynb) | [BVPs Shooting](W12-BVP.ipynb) | [BVPs Collocation](W12-BVP-2-collocation.ipynb) | |
-| 12 / Apr-3 | | | | Good Friday (no class) |
-| 13 / Apr-10 | | | | |
+| 12 / Apr-3 | BVPs nonlinear collocation file | [Method of Lines](W12-PDE-method-lines.ipynb) | | Good Friday (no class) |
+| 13 / Apr-10 | [Waves](W13-waves.ipynb) | | | |
 
 
