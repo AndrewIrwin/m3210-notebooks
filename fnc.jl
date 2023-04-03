@@ -201,3 +201,126 @@ function rk4(ivp,n)
     end
     return t,u
 end
+
+
+"""
+    diffmat2(n,xspan)
+
+Compute 2nd-order-accurate differentiation matrices on `n`+1 points
+in the interval `xspan`. Returns a vector of nodes and the matrices
+for the first and second derivatives.
+"""
+function diffmat2(n,xspan)
+    a,b = xspan
+    h = (b-a)/n
+    x = [ a + i*h for i in 0:n ]   # nodes
+
+    # Define most of Dₓ by its diagonals.
+    dp = fill(0.5/h,n)        # superdiagonal
+    dm = fill(-0.5/h,n)       # subdiagonal
+    Dₓ = diagm(-1=>dm,1=>dp)
+
+    # Fix first and last rows.
+    Dₓ[1,1:3] = [-1.5,2,-0.5]/h
+    Dₓ[n+1,n-1:n+1] = [0.5,-2,1.5]/h
+
+    # Define most of Dₓₓ by its diagonals.
+    d0 =  fill(-2/h^2,n+1)    # main diagonal
+    dp =  ones(n)/h^2         # super- and subdiagonal
+    Dₓₓ = diagm(-1=>dp,0=>d0,1=>dp)
+
+    # Fix first and last rows.
+    Dₓₓ[1,1:4] = [2,-5,4,-1]/h^2
+    Dₓₓ[n+1,n-2:n+1] = [-1,4,-5,2]/h^2
+
+    return x,Dₓ,Dₓₓ
+end
+
+"""
+    diffcheb(n,xspan)
+
+Compute Chebyshev differentiation matrices on `n`+1 points in the
+interval `xspan`. Returns a vector of nodes and the matrices for the
+first and second derivatives.
+"""
+function diffcheb(n,xspan)
+    x = [ -cos( k*π/n ) for k in 0:n ]    # nodes in [-1,1]
+    
+    # Off-diagonal entries.
+    c = [2; ones(n-1); 2];    # endpoint factors
+    dij = (i,j) -> (-1)^(i+j)*c[i+1]/(c[j+1]*(x[i+1]-x[j+1]))
+    Dₓ = [ dij(i,j) for i in 0:n, j in 0:n ]
+
+    # Diagonal entries.
+    Dₓ[isinf.(Dₓ)] .= 0         # fix divisions by zero on diagonal
+    s = sum(Dₓ,dims=2)
+    Dₓ -= diagm(s[:,1])         # "negative sum trick"
+
+    # Transplant to [a,b].
+    a,b = xspan
+    x = @. a + (b-a)*(x+1)/2
+    Dₓ = 2*Dₓ/(b-a)             # chain rule
+
+    # Second derivative.
+    Dₓₓ = Dₓ^2
+    return x,Dₓ,Dₓₓ
+end
+
+"""
+    bvplin(p,q,r,xspan,lval,rval,n)
+
+Use finite differences to solve a linear boundary value problem.
+The ODE is u''+`p`(x)u'+`q`(x)u = `r`(x) on the interval `xspan`,
+with endpoint function values given as `lval` and `rval`. There will
+be `n`+1 equally spaced nodes, including the endpoints.
+
+Returns vectors of the nodes and the solution values.
+"""
+function bvplin(p,q,r,xspan,lval,rval,n)
+    x,Dₓ,Dₓₓ = diffcheb(n,xspan)
+
+    P = diagm(p.(x))
+    Q = diagm(q.(x))
+    L = Dₓₓ + P*Dₓ + Q     # ODE expressed at the nodes
+
+    # Replace first and last rows using boundary conditions.
+    z = zeros(1,n)
+    A = [ [1 z]; L[2:n,:]; [z 1] ]
+    b = [ lval; r.(x[2:n]); rval ]
+
+    # Solve the system.
+    u = A\b
+    return x,u
+end
+
+"""
+    bvp(ϕ,xspan,lval,lder,rval,rder,init)
+
+Finite differences to solve a two-point boundary value problem with
+ODE u'' = `ϕ`(x,u,u') for x in `xspan`, left boundary condition 
+`g₁`(u,u')=0, and right boundary condition `g₂`(u,u')=0. The value 
+`init` is an initial estimate for the values of the solution u at
+equally spaced values of x, which also sets the number of nodes.
+    
+Returns vectors for the nodes and the values of u.
+"""
+function bvp(ϕ,xspan,g₁,g₂,init)
+    n = length(init) - 1
+    x,Dₓ,Dₓₓ = diffmat2(n,xspan)
+    h = x[2]-x[1]
+
+    function residual(u)
+        # Residual of the ODE at the nodes. 
+        du_dx = Dₓ*u                   # discrete u'
+        d2u_dx2 = Dₓₓ*u                # discrete u''
+        f = d2u_dx2 - ϕ.(x,u,du_dx)
+
+        # Replace first and last values by boundary conditions.
+        f[1] = g₁(u[1],du_dx[1])/h  # /h is a bit arbitrary; du_dx has a /h in it, so this is a useful scaling factor
+        f[n+1] = g₂(u[n+1],du_dx[n+1])/h
+        return f
+    end
+    
+    u = levenberg(residual,init)
+    return x,u[end]
+end
